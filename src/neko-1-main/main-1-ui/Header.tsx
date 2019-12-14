@@ -7,6 +7,7 @@ import {
     STUDENT_LOGIN_PATH,
     STUDENT_SELECT_PATH
 } from './Routes';
+import {Button} from "antd";
 
 const Header: React.FC = () => {
     const [show, setShow] = useState(false);
@@ -16,12 +17,14 @@ const Header: React.FC = () => {
             style={{
                 display: 'flex',
                 flexFlow: 'row',
+                height: '10vh',
                 // flexGrow: 1,
                 alignItems: 'center',
-                justifyContent: 'space-around'
+                justifyContent: 'space-around',
+                backgroundColor: '#cccccc'
             }}
         >
-            <button onClick={() => setShow(!show)}>{show ? 'hide dev header' : 'show dev header'}</button>
+            <Button onClick={() => setShow(!show)}>{show ? 'hide dev header' : 'show dev header'}</Button>
             {show && <NavLink to={STUDENT_LOGIN_PATH}>studentLogin</NavLink>}
             {show && <NavLink to={STUDENT_SELECT_PATH}>studentSelect</NavLink>}
 

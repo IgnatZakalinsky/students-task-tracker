@@ -1,30 +1,21 @@
 import React from 'react';
 import MentorStart from "./MentorStart";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {IState, setTasksCountAC} from "../mentor-4-redux/mentorReducer";
+import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
 
-interface IProps{
-    tasksCount: number,
-    setCount: Function
-}
-
-const MentorStartContainer: React.FC<IProps> = (props) => {
-
+const MentorStartContainer: React.FC = () => {
+    const mentorState = useSelector((store: IAppStore) => store.session);
+    const dispatch = useDispatch();
     const startSession = () => {
     };
     const setCount = (count: number) => {
-        props.setCount(count)
+        dispatch(setTasksCountAC(count))
     };
     return (
-        <MentorStart tasksCount={props.tasksCount} setCount={setCount}
+        <MentorStart tasksCount={mentorState.tasksCount} setCount={setCount}
                      startSession={startSession}/>
     );
 };
 
-let mapStateToProps = (state: IState) => {
-    return {
-        tasksCount: state.tasksCount
-    }
-};
-
-export default connect(mapStateToProps, {setCount: setTasksCountAC})(MentorStartContainer);
+export default MentorStartContainer
