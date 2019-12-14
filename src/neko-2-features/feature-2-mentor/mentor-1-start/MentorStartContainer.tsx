@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
+import MentorStart from "./MentorStart";
 
 const MentorStartContainer: React.FC = () => {
-    // logic
+    let [defaultValue, setDefaultValue] = useState(1);
 
+    const startSession = () => {
+
+    };
     return (
-        <div>mentor start</div>
+        <MentorStart defaultValue={defaultValue} setDefaultValue={setDefaultValue} startSession={startSession}/>
     );
 };
 
