@@ -1,15 +1,19 @@
 import React from 'react'
 import {Button, InputNumber} from "antd";
-import {NavLink} from "react-router-dom"
+import {NavLink, Redirect} from "react-router-dom"
 
 interface IProps {
     tasksCount: number,
     setCount: any,
     startSession: Function,
-    error: string
+    error: string,
+    token: string
 }
 
 const MentorStart: React.FC<IProps> = (props) => {
+    if(!!props.token){
+        return <Redirect to={'/test-mentor-session-container'}/>
+    }
     return (
         <div
             style={{
@@ -18,13 +22,13 @@ const MentorStart: React.FC<IProps> = (props) => {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-            <NavLink to={'/test-mentor-session-container'}><Button type={'primary'} onClick={() => {props.startSession(props.tasksCount)}}
+            <Button type={'primary'} onClick={() => {props.startSession(props.tasksCount)}}
                     style={{
                         width: '100px',
                         height: '50px',
                         borderRadius: '20px',
                     }}
-            >START</Button></NavLink>
+            >START</Button>
             <InputNumber min={1} defaultValue={props.tasksCount} onChange={props.setCount}
                          style={{
                              display: 'flex',

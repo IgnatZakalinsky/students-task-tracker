@@ -14,7 +14,7 @@ const MentorStartContainer: React.FC = () => {
         dispatch(setTasksCountAC(count))
     };
     return (
-        <MentorStart tasksCount={mentorState.tasksCount} setCount={setCount}
+        <MentorStart tasksCount={mentorState.tasksCount} setCount={setCount} token={mentorState.token}
                      startSession={startSession} error={mentorState.errorName}/>
     );
 };
