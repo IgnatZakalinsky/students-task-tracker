@@ -6,19 +6,22 @@ const SET_ERROR = 'mentorReducer/SET_ERROR';
 
 export interface IState{
     tasksCount: number,
-    token: string,
+    sessionToken: string,
+    authorToken: string,
     errorName: string
 }
 
 let initState: IState = {
     tasksCount: 15,
-    token: '',
+    sessionToken: '',
+    authorToken: '',
     errorName: ''
 };
 
 interface startSessionAction{
     type: typeof START_SESSION,
-    token: string
+    sessionToken: string,
+    authorToken: string
 }
 interface setTotalCountAction{
     type: typeof SET_TOTAL_COUNT,
@@ -40,7 +43,8 @@ export const mentorReducer = (state = initState, action: actionTypes) => {
         case START_SESSION: {
             return {
                 ...state,
-                token: action.token
+                sessionToken: action.sessionToken,
+                authorToken: action.authorToken
             }
         }
         case SET_ERROR: {
@@ -55,7 +59,7 @@ export const mentorReducer = (state = initState, action: actionTypes) => {
     }
 };
 
-const startSessionAC = (token: string) => ({type: START_SESSION, token});
+const startSessionAC = (sessionToken: string, authorToken: string) => ({type: START_SESSION, sessionToken, authorToken});
 const setErrorAC = (errorName: string) => ({type: SET_ERROR, errorName});
 export const setTasksCountAC = (count: number) => ({type: SET_TOTAL_COUNT, count});
 
@@ -63,7 +67,7 @@ export const startSessionThunkCreator = (tasksCount: number) => {
     return async (dispatch: Function) => {
         const response = await mentorAPI.mentorStart(tasksCount);
         if(!response.data.error) {
-            dispatch(startSessionAC(response.data.authorToken))
+            dispatch(startSessionAC(response.data.sesionToken, response.data.authorToken))
         }
         else dispatch(setErrorAC(response.data.error))
     }
