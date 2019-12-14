@@ -1,10 +1,10 @@
 import React from 'react';
+import StudentLogin from "./StudentLogin";
 
 const StudentLoginContainer: React.FC = () => {
-    // logic
 
     return (
-        <div>student login</div>
+        <StudentLogin/>
     );
 };
 
