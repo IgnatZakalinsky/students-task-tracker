@@ -1,15 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import MentorStart from "./MentorStart";
+import {connect} from "react-redux";
+import {IState, setTasksCountAC} from "../mentor-4-redux/mentorReducer";
 
-const MentorStartContainer: React.FC = () => {
-    let [defaultValue, setDefaultValue] = useState(1);
+interface IProps{
+    tasksCount: number,
+    setCount: Function
+}
+
+const MentorStartContainer: React.FC<IProps> = (props) => {
 
     const startSession = () => {
-
+    };
+    const setCount = (count: number) => {
+        props.setCount(count)
     };
     return (
-        <MentorStart defaultValue={defaultValue} setDefaultValue={setDefaultValue} startSession={startSession}/>
+        <MentorStart tasksCount={props.tasksCount} setCount={setCount}
+                     startSession={startSession}/>
     );
 };
 
-export default MentorStartContainer;
+let mapStateToProps = (state: IState) => {
+    return {
+        tasksCount: state.tasksCount
+    }
+};
+
+export default connect(mapStateToProps, {setCount: setTasksCountAC})(MentorStartContainer);
