@@ -1,25 +1,33 @@
 const STUDENT_LOGIN = 'studentReducer/STUDENT_LOGIN';
+const CURRENT_NAME_CHANGE = 'studentReducer/CURRENT_NAME_CHANGE';
 
-interface studentLoginAction{
+interface studentLoginAction {
     type: typeof STUDENT_LOGIN,
     name: string
 }
 
-type typeOfAction = studentLoginAction
-
-interface IState {
-    students: IStudent[]
+interface currentNameAction {
+    type: typeof CURRENT_NAME_CHANGE,
+    name: string
 }
 
-interface IStudent{
+type typeOfAction = studentLoginAction | currentNameAction
+
+interface IState {
+    students: IStudent[],
+    currentStudentName: string
+}
+
+interface IStudent {
     name: string,
     studentToken: string
 }
 
 const initState: IState = {
-  students: [
-      {name: 'Ivan Govnov', studentToken: '1488'}
-  ]
+    currentStudentName: '',
+    students: [
+        {name: 'Ivan Govnov', studentToken: '1488'}
+    ]
 };
 export const studentReducer = (state = initState, action: typeOfAction) => {
     switch (action.type) {
@@ -29,6 +37,12 @@ export const studentReducer = (state = initState, action: typeOfAction) => {
                 name: action.name
             }
         }
+        case CURRENT_NAME_CHANGE: {
+            return {
+                ...state,
+                currentStudentName: action.name
+            }
+        }
         default: {
             return state;
         }
@@ -36,4 +50,4 @@ export const studentReducer = (state = initState, action: typeOfAction) => {
 };
 
 export const studentLoginAC = (name: string) => ({type: STUDENT_LOGIN, name});
-
+export const currentNameChangeAC = (name: string) => ({type: CURRENT_NAME_CHANGE, name});
