@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
 import MentorSession from "./MentorSession";
@@ -10,10 +10,12 @@ import {getCookie, setCookie} from "../../feature-4-helpers/cookies";
 const MentorSessionContainer: React.FC = () => {
     const mentorState = useSelector((store: IAppStore) => store.session);
     const dispatch = useDispatch();
+    const [rerender, setRerender] = useState(false);
 
     const logout = () => {
         setCookie('authorToken', '', -1000);
         setCookie('sessionToken', '', -1000);
+        setRerender(!rerender);
     };
 
     const authorToken = getCookie('authorToken');
