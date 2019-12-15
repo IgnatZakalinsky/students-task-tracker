@@ -10,13 +10,27 @@ type IGetStore = () => IAppStore;
 
 export const goToSession = (): ThunkAction<Return, IAppStore, ExtraArgument, IStudentActions> =>
     async (dispatch: ThunkDispatch<IAppStore, ExtraArgument, IStudentActions>, getStore: IGetStore) => {
-        const {name, sessionToken} = getStore().student;
+        // const {name, sessionToken} = getStore().student;
+        const {name} = getStore().student;
+        const sessionToken = getCookie('sessionToken');
 
         dispatch(studentLoading(true));
 
         try {
+            if (!sessionToken) {
+                alert('sessionToken: ' + sessionToken);
+                throw {message: 'no sessionToken'};
+            }
+
             const response = await StudentAPI.goToSession(name, sessionToken);
             if (response.data.error) {
+
+                if (response.data.error === 'bad sessionToken' || response.data.error === 'session is finished') {
+                    alert('token error');
+                    setCookie('studentToken', '', -1000);
+                    setCookie('sessionToken', '', -1000);
+                }
+
                 dispatch(studentError(response.data.error));
             } else {
                 console.log('studentToken:', response.data.studentToken);
@@ -47,17 +61,23 @@ export const updateStudent = (): ThunkAction<Return, IAppStore, ExtraArgument, I
 
         try {
             if (!sessionToken) {
-                alert('sessionToken: ' + sessionToken)
+                // alert('sessionToken: ' + sessionToken);
                 throw {message: 'no sessionToken'};
             }
             if (!studentToken) {
-                alert('studentToken: ' + studentToken)
+                // alert('studentToken: ' + studentToken);
                 throw {message: 'no studentToken'};
             }
 
             const response = await StudentAPI.updateStudent(studentToken, sessionToken, name, currentTaskNumber);
             if (response.data.error) {
                 if (response.data.taskCount) dispatch(studentSuccess(studentToken, name, response.data.taskCount, currentTaskNumber));
+
+                if (response.data.error === 'bad sessionToken' || response.data.error === 'session is finished' ||
+                    response.data.error === "session don't have student with your studentToken") {
+                    setCookie('studentToken', '', -1000);
+                    setCookie('sessionToken', '', -1000);
+                }
 
                 dispatch(studentError(response.data.error));
             } else {

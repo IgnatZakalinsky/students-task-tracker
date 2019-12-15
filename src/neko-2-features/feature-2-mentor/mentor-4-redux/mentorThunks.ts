@@ -17,6 +17,7 @@ export const startSession = (): ThunkAction<Return, IAppStore, ExtraArgument, IM
         try {
             const response = await MentorAPI.startSession(taskCount);
             if (response.data.error) {
+
                 dispatch(mentorError(response.data.error));
             } else {
                 setCookie('sessionToken', response.data.sessionToken, 60 * 60 * 24 * 7); // 7 days
@@ -39,12 +40,21 @@ export const getStudents = (): ThunkAction<Return, IAppStore, ExtraArgument, IMe
         dispatch(mentorLoading(true));
 
         try {
-            if (!authorToken) throw {message: 'no authorToken'};
+            if (!authorToken) {
+                // alert('authorToken: ' + authorToken);
+                throw {message: 'no authorToken'};
+            }
 
             const response = await MentorAPI.getStudents(authorToken);
             if (response.data.error) {
+                if (response.data.error === 'bad authorToken' || response.data.error === 'session is finished') {
+                    setCookie('authorToken', '', -1000);
+                    setCookie('sessionToken', '', -1000);
+                }
+
                 dispatch(mentorError(response.data.error));
             } else {
+                setCookie('sessionToken', response.data.sessionToken, 60 * 60 * 24 * 7); // 7 days
                 dispatch(mentorGetStudentsSuccess(response.data.sessionToken, response.data.taskCount, response.data.students));
 
                 console.log('Mentor Get students Success!', response)

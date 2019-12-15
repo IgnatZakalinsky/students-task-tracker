@@ -9,9 +9,10 @@ const MentorDiagramContainer: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch(getStudents());
         const t = setInterval(() => {
             dispatch(getStudents());
-        }, 10000);
+        }, 30000);
         return () => clearInterval(t);
     }, []);
 
