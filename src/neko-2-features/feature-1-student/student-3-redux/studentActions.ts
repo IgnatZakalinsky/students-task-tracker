@@ -13,6 +13,8 @@ interface IStudentSuccess {
     type: typeof STUDENT_SUCCESS;
     studentToken: string;
     taskCount: number;
+    name: string;
+    currentTaskNumber: number;
 }
 interface IStudentSetCurrentTaskNumber {
     type: typeof STUDENT_SET_CURRENT_TASK_NUMBER;
@@ -43,10 +45,12 @@ export const studentLoading = (loading: boolean): IStudentLoading => ({
     type: STUDENT_LOADING,
     loading,
 });
-export const studentSuccess = (studentToken: string, taskCount: number): IStudentSuccess => ({
+export const studentSuccess = (studentToken: string, name: string, taskCount: number, currentTaskNumber: number): IStudentSuccess => ({
     type: STUDENT_SUCCESS,
     studentToken,
     taskCount,
+    name,
+    currentTaskNumber
 });
 export const studentSetCurrentTaskNumber = (currentTaskNumber: number): IStudentSetCurrentTaskNumber => ({
     type: STUDENT_SET_CURRENT_TASK_NUMBER,

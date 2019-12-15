@@ -6,6 +6,7 @@ import {mentorSetTaskCount} from "../mentor-4-redux/mentorActions";
 import {startSession} from "../mentor-4-redux/mentorThunks";
 import {Redirect} from "react-router";
 import {MENTOR_SESSION_PATH} from "../../../neko-1-main/main-1-ui/Routes";
+import {getCookie} from "../../feature-4-helpers/cookies";
 
 const MentorStartContainer: React.FC = () => {
     const mentorState = useSelector((store: IAppStore) => store.session);
@@ -18,7 +19,8 @@ const MentorStartContainer: React.FC = () => {
         dispatch(mentorSetTaskCount(taskCount))
     };
 
-    if (!!mentorState.authorToken) {
+    const authorToken = getCookie('authorToken');
+    if (!!authorToken) {
         return <Redirect to={MENTOR_SESSION_PATH}/>
     }
 

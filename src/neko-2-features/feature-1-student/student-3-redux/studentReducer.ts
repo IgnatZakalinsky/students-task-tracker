@@ -24,6 +24,8 @@ export const studentReducer = (state = studentInitialState, action: IStudentActi
                 error: '',
                 studentToken: action.studentToken,
                 taskCount: action.taskCount,
+                name: action.name,
+                currentTaskNumber: action.currentTaskNumber,
             }
         }
         case STUDENT_ERROR: {

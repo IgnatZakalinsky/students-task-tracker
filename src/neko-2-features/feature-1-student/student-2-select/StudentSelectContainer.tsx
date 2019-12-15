@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import StudentSelect from "./StudentSelect";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from '../../../neko-1-main/main-2-bll/store';
 import {studentSetCurrentTaskNumber, studentSetName} from "../student-3-redux/studentActions";
 import {flexRowCenterCenter80} from "../../feature-3-styles/styles";
-import {updateStudent} from '../student-3-redux/studenttThunks';
+import {updateStudent} from '../student-3-redux/studentThunks';
+import {getCookie} from "../../feature-4-helpers/cookies";
 
 const StudentSelectContainer: React.FC = () => {
     const studentState = useSelector((store: IAppStore) => store.student);
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     console.log('sessionToken:', sessionToken)
-    //     if (sessionToken) dispatch(studentSetSessionToken(sessionToken));
-    // }, []);
+    useEffect(() => {
+        dispatch(updateStudent());
+    }, []);
 
     const updateStudentCallback = () => {
         dispatch(updateStudent())
@@ -26,7 +26,8 @@ const StudentSelectContainer: React.FC = () => {
         updateStudentCallback();
     };
 
-    if (!studentState.studentToken) {
+    const studentToken = getCookie('studentToken');
+    if (!studentToken) {
         return <div style={flexRowCenterCenter80}>You don't have studentToken!</div>
     }
 

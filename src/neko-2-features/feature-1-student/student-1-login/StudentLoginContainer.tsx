@@ -3,9 +3,10 @@ import StudentLogin from "./StudentLogin";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
 import {studentSetName, studentSetSessionToken} from "../student-3-redux/studentActions";
-import {goToSession} from '../student-3-redux/studenttThunks';
+import {goToSession} from '../student-3-redux/studentThunks';
 import {Redirect} from "react-router";
 import {STUDENT_SELECT_PATH} from "../../../neko-1-main/main-1-ui/Routes";
+import {getCookie, setCookie} from "../../feature-4-helpers/cookies";
 
 interface IStudentLoginContainerProps {
     sessionToken: string;
@@ -16,8 +17,10 @@ const StudentLoginContainer: React.FC<IStudentLoginContainerProps> = ({sessionTo
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('sessionToken:', sessionToken)
-        if (sessionToken) dispatch(studentSetSessionToken(sessionToken));
+        if (sessionToken) {
+            setCookie('sessionToken', sessionToken, 60 * 60 * 24 * 7); // 7 days
+            dispatch(studentSetSessionToken(sessionToken));
+        }
     }, []);
 
     const studentSetNameCallback = (name: string) => {
@@ -27,7 +30,8 @@ const StudentLoginContainer: React.FC<IStudentLoginContainerProps> = ({sessionTo
         dispatch(goToSession())
     };
 
-    if (!!studentState.studentToken) {
+    const studentToken = getCookie('studentToken');
+    if (!!studentToken) {
         return <Redirect to={STUDENT_SELECT_PATH}/>
     }
 
