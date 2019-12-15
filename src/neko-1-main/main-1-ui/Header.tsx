@@ -8,6 +8,7 @@ import {
     STUDENT_SELECT_PATH
 } from './Routes';
 import {Button} from "antd";
+import {flexRowCenterSpaceAround} from "../../neko-2-features/feature-3-styles/styles";
 
 const Header: React.FC = () => {
     const [show, setShow] = useState(false);
@@ -15,12 +16,8 @@ const Header: React.FC = () => {
     return (
         <div
             style={{
-                display: 'flex',
-                flexFlow: 'row',
+                ...flexRowCenterSpaceAround,
                 height: '10vh',
-                // flexGrow: 1,
-                alignItems: 'center',
-                justifyContent: 'space-around',
                 backgroundColor: '#cccccc'
             }}
         >

@@ -1,43 +1,21 @@
 import React from 'react';
 import {Button, InputNumber} from "antd";
+import {flexColumnCenterCenter80, flexRowCenterSpaceAround} from "../../feature-3-styles/styles";
 
-interface IProps{
-    tasksCount: number,
-    setCount: any,
+interface IMentorSessionProps {
+    taskCount: number,
     link: string
 }
 
-const MentorSession: React.FC<IProps> = (props) => {
+const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link}) => {
 
     return (
-        <div style={{
-            height: '80vh',
-            display: 'flex',
-            flexFlow: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <div style={{
-                width: '400px',
-                height: '80px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                {props.link}
-            </div>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center'
-            }}>
-                <InputNumber min={1} defaultValue={props.tasksCount} size={'large'} onChange={props.setCount}
-                             style={{
-                                 display: 'flex',
-                                 fontSize: '18px',
-                                 alignItems: 'center',
-                                 marginRight: '10px'
-                             }}/>
-                             <Button type={'primary'} size={'large'}>FINISH SESSION</Button>
+        <div style={flexColumnCenterCenter80}>
+            {link}
+
+            <div style={{...flexRowCenterSpaceAround, width: '100vw'}}>
+                <InputNumber min={0} value={taskCount} style={{margin: '20px'}}/>
+                <Button type={'primary'}>FINISH SESSION</Button>
             </div>
         </div>
     );
