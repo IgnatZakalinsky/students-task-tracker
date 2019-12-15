@@ -6,6 +6,8 @@ const instance = axios.create({
 });
 
 export const StudentAPI = {
-
+    goToSession (name: string, sessionToken: string) {
+        return instance.post('/student', {name, sessionToken})
+    }
 
 };

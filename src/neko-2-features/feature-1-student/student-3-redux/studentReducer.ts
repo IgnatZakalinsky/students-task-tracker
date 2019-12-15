@@ -1,5 +1,12 @@
 import {studentInitialState} from "./studentInitialState";
-import {IStudentActions, STUDENT_SET_NAME, STUDENT_LOADING, STUDENT_SUCCESS, STUDENT_ERROR} from "./studentActions";
+import {
+    IStudentActions,
+    STUDENT_SET_NAME,
+    STUDENT_LOADING,
+    STUDENT_SUCCESS,
+    STUDENT_ERROR,
+    STUDENT_SET_SESSION_TOKEN
+} from "./studentActions";
 
 export const studentReducer = (state = studentInitialState, action: IStudentActions) => {
     switch (action.type) {
@@ -8,22 +15,21 @@ export const studentReducer = (state = studentInitialState, action: IStudentActi
                 ...state,
                 loading: action.loading,
                 error: '',
-                success: false,
             }
         }
         case STUDENT_SUCCESS: {
             return {
                 ...state,
                 loading: false,
-                success: action.success,
                 error: '',
+                studentToken: action.studentToken,
+                taskCount: action.taskCount,
             }
         }
         case STUDENT_ERROR: {
             return {
                 ...state,
                 loading: false,
-                success: false,
                 error: action.error,
             }
         }
@@ -32,10 +38,18 @@ export const studentReducer = (state = studentInitialState, action: IStudentActi
                 ...state,
                 name: action.name,
                 loading: false,
-                success: false,
                 error: '',
             }
         }
+        case STUDENT_SET_SESSION_TOKEN: {
+            return {
+                ...state,
+                sessionToken: action.sessionToken,
+                loading: false,
+                error: '',
+            }
+        }
+
         default: {
             return state;
         }

@@ -18,7 +18,7 @@ export const startSession = (): ThunkAction<Return, IAppStore, ExtraArgument, IM
             if (response.data.error) {
                 dispatch(mentorError(response.data.error));
             } else {
-                dispatch(mentorSuccess(response.data.sessionToken, response.data.autorToken));
+                dispatch(mentorSuccess(response.data.sessionToken, response.data.authorToken));
 
                 console.log('Mentor Start Success!', response)
             }

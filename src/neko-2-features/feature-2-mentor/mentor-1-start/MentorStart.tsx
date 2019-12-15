@@ -1,26 +1,22 @@
 import React from 'react'
 import {Button, InputNumber} from "antd";
-import {Redirect} from "react-router-dom"
-import {MENTOR_SESSION_PATH} from "../../../neko-1-main/main-1-ui/Routes";
 import {flexColumnCenterCenter80, flexRowCenterCenter} from "../../feature-3-styles/styles";
 
 interface IMentorStartProps {
     taskCount: number;
     error: string;
-    sessionToken: string;
+    loading: boolean;
     mentorSetTaskCountCallback: (taskCount: number) => void;
     startSessionCallback: () => void;
 }
 
 const MentorStart: React.FC<IMentorStartProps> =
-    ({taskCount, error, sessionToken, mentorSetTaskCountCallback, startSessionCallback}) => {
-        if (!!sessionToken) {
-            return <Redirect to={MENTOR_SESSION_PATH}/>
-        }
+    ({taskCount, error, loading, mentorSetTaskCountCallback, startSessionCallback}) => {
 
         return (
             <div style={flexColumnCenterCenter80}>
                 {!!error && <div style={{color: 'red'}}>{error}</div>}
+                {loading && <div style={{color: 'orange'}}>Loading...</div>}
 
                 <div style={flexRowCenterCenter}>
                     <InputNumber
