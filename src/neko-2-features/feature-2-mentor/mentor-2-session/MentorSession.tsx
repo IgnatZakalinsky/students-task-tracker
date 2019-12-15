@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, InputNumber} from "antd";
 import {flexColumnCenterCenter80, flexRowCenterSpaceAround} from "../../feature-3-styles/styles";
+import MentorDiagramContainer from "../mentor-3-diagram/MentorDiagramContainer";
 
 interface IMentorSessionProps {
     taskCount: number,
@@ -17,6 +18,7 @@ const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link}) => {
                 <InputNumber min={0} value={taskCount} style={{margin: '20px'}}/>
                 <Button type={'primary'}>FINISH SESSION</Button>
             </div>
+            <MentorDiagramContainer/>
         </div>
     );
 };

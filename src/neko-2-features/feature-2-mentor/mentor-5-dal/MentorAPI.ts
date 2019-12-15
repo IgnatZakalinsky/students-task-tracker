@@ -8,5 +8,9 @@ const instance = axios.create({
 export const MentorAPI = {
     startSession(taskCount: number) {
         return instance.post('/session', {taskCount})
-    }
+    },
+    getStudents(authorToken: string) {
+        return instance.get('/session?authorToken=' + authorToken)
+    },
+
 };
