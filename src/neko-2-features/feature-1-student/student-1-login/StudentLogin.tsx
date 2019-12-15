@@ -1,26 +1,23 @@
 import React from 'react';
 import {Button, Input} from "antd";
+import {flexColumnCenterCenter80} from "../../feature-3-styles/styles";
 
-interface IProps{
-    loginStudent: any,
-    name: string,
-    changeName: any
+interface IStudentLoginProps {
+    name: string;
+    studentSetNameCallback: (name: string) => void;
 }
-const StudentLogin: React.FC<IProps> = (props) => {
+
+const StudentLogin: React.FC<IStudentLoginProps> = ({name, studentSetNameCallback}) => {
 
     return (
-        <div style={{
-            height: '80vh',
-            display: 'flex',
-            flexFlow: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
-            <Input placeholder={'Name Surname'} value={props.name} onChange={(e) => {props.changeName(e)}} style={{
-                width: '400px',
-                margin: '25px'
-            }}/>
-            <Button onClick={()=>{props.loginStudent(props.name)}}>Log In</Button>
+        <div style={flexColumnCenterCenter80}>
+            <Input
+                placeholder={'Name Surname'}
+                value={name}
+                onChange={e => studentSetNameCallback(e.currentTarget.value)}
+                style={{width: '400px', margin: '20px'}}
+            />
+            <Button>Go to session</Button>
         </div>
     );
 };

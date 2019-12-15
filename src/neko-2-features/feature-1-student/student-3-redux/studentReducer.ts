@@ -1,46 +1,39 @@
-const STUDENT_LOGIN = 'studentReducer/STUDENT_LOGIN';
-const CURRENT_NAME_CHANGE = 'studentReducer/CURRENT_NAME_CHANGE';
+import {studentInitialState} from "./studentInitialState";
+import {IStudentActions, STUDENT_SET_NAME, STUDENT_LOADING, STUDENT_SUCCESS, STUDENT_ERROR} from "./studentActions";
 
-interface studentLoginAction {
-    type: typeof STUDENT_LOGIN,
-    name: string
-}
-
-interface currentNameAction {
-    type: typeof CURRENT_NAME_CHANGE,
-    name: string
-}
-
-type typeOfAction = studentLoginAction | currentNameAction
-
-interface IState {
-    students: IStudent[],
-    currentStudentName: string
-}
-
-interface IStudent {
-    name: string,
-    studentToken: string
-}
-
-const initState: IState = {
-    currentStudentName: '',
-    students: [
-        {name: 'Ivan Govnov', studentToken: '1488'}
-    ]
-};
-export const studentReducer = (state = initState, action: typeOfAction) => {
+export const studentReducer = (state = studentInitialState, action: IStudentActions) => {
     switch (action.type) {
-        case STUDENT_LOGIN: {
+        case STUDENT_LOADING: {
             return {
                 ...state,
-                name: action.name
+                loading: action.loading,
+                error: '',
+                success: false,
             }
         }
-        case CURRENT_NAME_CHANGE: {
+        case STUDENT_SUCCESS: {
             return {
                 ...state,
-                currentStudentName: action.name
+                loading: false,
+                success: action.success,
+                error: '',
+            }
+        }
+        case STUDENT_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                success: false,
+                error: action.error,
+            }
+        }
+        case STUDENT_SET_NAME: {
+            return {
+                ...state,
+                name: action.name,
+                loading: false,
+                success: false,
+                error: '',
             }
         }
         default: {
@@ -48,6 +41,3 @@ export const studentReducer = (state = initState, action: typeOfAction) => {
         }
     }
 };
-
-export const studentLoginAC = (name: string) => ({type: STUDENT_LOGIN, name});
-export const currentNameChangeAC = (name: string) => ({type: CURRENT_NAME_CHANGE, name});
