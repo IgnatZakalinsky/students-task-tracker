@@ -28,3 +28,26 @@ export const goToSession = (): ThunkAction<Return, IAppStore, ExtraArgument, ISt
             console.log('Student goToSession Error!', e)
         }
     };
+export const updateStudent = (): ThunkAction<Return, IAppStore, ExtraArgument, IStudentActions> =>
+    async (dispatch: ThunkDispatch<IAppStore, ExtraArgument, IStudentActions>, getStore: IGetStore) => {
+        const {name, sessionToken, studentToken, currentTaskNumber} = getStore().student;
+
+        dispatch(studentLoading(true));
+
+        try {
+            const response = await StudentAPI.updateStudent(studentToken, sessionToken, name, currentTaskNumber);
+            if (response.data.error) {
+                if (response.data.taskCount) dispatch(studentSuccess(studentToken, response.data.taskCount));
+
+                dispatch(studentError(response.data.error));
+            } else {
+                dispatch(studentSuccess(studentToken, response.data.taskCount));
+
+                console.log('Student updateStudent Success!', response)
+            }
+        } catch (e) {
+            dispatch(studentError(e.message));
+
+            console.log('Student updateStudent Error!', e)
+        }
+    };

@@ -5,7 +5,7 @@ import {
     STUDENT_LOADING,
     STUDENT_SUCCESS,
     STUDENT_ERROR,
-    STUDENT_SET_SESSION_TOKEN
+    STUDENT_SET_SESSION_TOKEN, STUDENT_SET_CURRENT_TASK_NUMBER
 } from "./studentActions";
 
 export const studentReducer = (state = studentInitialState, action: IStudentActions) => {
@@ -37,6 +37,14 @@ export const studentReducer = (state = studentInitialState, action: IStudentActi
             return {
                 ...state,
                 name: action.name,
+                loading: false,
+                error: '',
+            }
+        }
+        case STUDENT_SET_CURRENT_TASK_NUMBER: {
+            return {
+                ...state,
+                currentTaskNumber: action.currentTaskNumber,
                 loading: false,
                 error: '',
             }

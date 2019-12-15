@@ -8,6 +8,9 @@ const instance = axios.create({
 export const StudentAPI = {
     goToSession (name: string, sessionToken: string) {
         return instance.post('/student', {name, sessionToken})
-    }
+    },
+    updateStudent(studentToken: string, sessionToken: string, name: string, currentTaskNumber: number) {
+        return instance.put('/student', {name, sessionToken, studentToken, currentTaskNumber})
+    },
 
 };

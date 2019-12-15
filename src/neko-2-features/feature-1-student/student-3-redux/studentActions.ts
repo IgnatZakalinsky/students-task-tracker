@@ -3,6 +3,7 @@ export const STUDENT_SUCCESS = 'STUDENT/SUCCESS';
 export const STUDENT_ERROR = 'STUDENT/ERROR';
 export const STUDENT_SET_NAME = 'STUDENT/SET_NAME';
 export const STUDENT_SET_SESSION_TOKEN = 'STUDENT/SET_SESSION_TOKEN';
+export const STUDENT_SET_CURRENT_TASK_NUMBER = 'STUDENT/SET_CURRENT_TASK_NUMBER';
 
 interface IStudentLoading {
     type: typeof STUDENT_LOADING;
@@ -12,6 +13,10 @@ interface IStudentSuccess {
     type: typeof STUDENT_SUCCESS;
     studentToken: string;
     taskCount: number;
+}
+interface IStudentSetCurrentTaskNumber {
+    type: typeof STUDENT_SET_CURRENT_TASK_NUMBER;
+    currentTaskNumber: number;
 }
 interface IStudentError {
     type: typeof STUDENT_ERROR;
@@ -26,7 +31,13 @@ interface IStudentSetSessionToken {
     sessionToken: string;
 }
 
-export type IStudentActions = IStudentLoading | IStudentSuccess | IStudentError | IStudentSetName | IStudentSetSessionToken;
+export type IStudentActions =
+    IStudentLoading |
+    IStudentSuccess |
+    IStudentError |
+    IStudentSetName |
+    IStudentSetSessionToken |
+    IStudentSetCurrentTaskNumber;
 
 export const studentLoading = (loading: boolean): IStudentLoading => ({
     type: STUDENT_LOADING,
@@ -36,6 +47,10 @@ export const studentSuccess = (studentToken: string, taskCount: number): IStuden
     type: STUDENT_SUCCESS,
     studentToken,
     taskCount,
+});
+export const studentSetCurrentTaskNumber = (currentTaskNumber: number): IStudentSetCurrentTaskNumber => ({
+    type: STUDENT_SET_CURRENT_TASK_NUMBER,
+    currentTaskNumber,
 });
 export const studentError = (error: string): IStudentError => ({
     type: STUDENT_ERROR,

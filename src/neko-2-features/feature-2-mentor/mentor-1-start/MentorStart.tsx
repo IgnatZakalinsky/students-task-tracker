@@ -24,8 +24,9 @@ const MentorStart: React.FC<IMentorStartProps> =
                         value={taskCount}
                         onChange={e => mentorSetTaskCountCallback(e || 0)}
                         style={{margin: '20px'}}
+                        disabled={loading}
                     />
-                    <Button type={'primary'} onClick={startSessionCallback}>
+                    <Button type={'primary'} onClick={startSessionCallback} disabled={loading}>
                         START
                     </Button>
                 </div>

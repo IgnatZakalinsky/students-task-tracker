@@ -23,8 +23,11 @@ const StudentLogin: React.FC<IStudentLoginProps> =
                     value={name}
                     onChange={e => studentSetNameCallback(e.currentTarget.value)}
                     style={{width: '400px', margin: '20px'}}
+                    disabled={loading}
                 />
-                <Button onClick={goToSessionCallback}>Go to session</Button>
+                <Button onClick={goToSessionCallback} disabled={loading} type={'primary'}>
+                    Go to session
+                </Button>
             </div>
         );
     };
