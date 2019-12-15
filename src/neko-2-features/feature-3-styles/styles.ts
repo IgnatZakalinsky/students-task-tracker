@@ -36,5 +36,5 @@ export const flexColumnCenterSpaceAround = {
 };
 export const flexColumnCenterCenter80 = {
     ...flexColumnCenterCenter,
-    height: '80vh',
+    minHeight: '80vh',
 };
