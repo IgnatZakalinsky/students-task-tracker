@@ -6,9 +6,10 @@ import MentorDiagramContainer from "../mentor-3-diagram/MentorDiagramContainer";
 interface IMentorSessionProps {
     taskCount: number,
     link: string
+    logout: () => void
 }
 
-const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link}) => {
+const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, logout}) => {
 
     return (
         <div style={flexColumnCenterCenter80}>
@@ -16,7 +17,9 @@ const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link}) => {
 
             <div style={{...flexRowCenterSpaceAround, width: '100vw'}}>
                 <InputNumber min={0} value={taskCount} style={{margin: '20px'}}/>
-                <Button type={'primary'}>FINISH SESSION</Button>
+                <Button type={'primary'} onClick={logout}>
+                    FINISH SESSION
+                </Button>
             </div>
             <MentorDiagramContainer/>
         </div>

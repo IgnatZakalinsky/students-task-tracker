@@ -5,14 +5,15 @@ import MentorSession from "./MentorSession";
 import {MENTOR_START_PATH, STUDENT_LOGIN_PATH} from "../../../neko-1-main/main-1-ui/Routes";
 import {frontURL} from "../../../frontURL";
 import {Redirect} from "react-router";
-import {getCookie} from "../../feature-4-helpers/cookies";
+import {getCookie, setCookie} from "../../feature-4-helpers/cookies";
 
 const MentorSessionContainer: React.FC = () => {
     const mentorState = useSelector((store: IAppStore) => store.session);
     const dispatch = useDispatch();
 
-    const setCount = (count: number) => {
-        alert('no endpoint!')
+    const logout = () => {
+        setCookie('authorToken', '', -1000);
+        setCookie('sessionToken', '', -1000);
     };
 
     const authorToken = getCookie('authorToken');
@@ -23,7 +24,7 @@ const MentorSessionContainer: React.FC = () => {
     const link = frontURL + STUDENT_LOGIN_PATH + '/' + sessionToken;
 
     return (
-        <MentorSession taskCount={mentorState.taskCount} link={link}/>
+        <MentorSession taskCount={mentorState.taskCount} link={link} logout={logout}/>
     );
 };
 
