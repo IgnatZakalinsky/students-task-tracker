@@ -1,21 +1,28 @@
 import React from 'react';
 import MentorStart from "./MentorStart";
 import {useDispatch, useSelector} from "react-redux";
-import {setTasksCountAC, startSessionThunkCreator} from "../mentor-4-redux/mentorReducer";
 import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
+import {mentorSetTaskCount} from "../mentor-4-redux/mentorActions";
+import {startSession} from "../mentor-4-redux/mentorThunks";
 
 const MentorStartContainer: React.FC = () => {
     const mentorState = useSelector((store: IAppStore) => store.session);
     const dispatch = useDispatch();
-    const startSession = (count: number) => {
-        dispatch(startSessionThunkCreator(count));
+
+    const startSessionCallback = () => {
+        dispatch(startSession());
     };
-    const setCount = (count: number) => {
-        dispatch(setTasksCountAC(count))
+    const mentorSetTaskCountCallback = (taskCount: number) => {
+        dispatch(mentorSetTaskCount(taskCount))
     };
     return (
-        <MentorStart tasksCount={mentorState.tasksCount} setCount={setCount} token={mentorState.sessionToken}
-                     startSession={startSession} error={mentorState.errorName}/>
+        <MentorStart
+            taskCount={mentorState.taskCount}
+            mentorSetTaskCountCallback={mentorSetTaskCountCallback}
+            startSessionCallback={startSessionCallback}
+            sessionToken={mentorState.sessionToken}
+            error={mentorState.error}
+        />
     );
 };
 

@@ -1,55 +1,47 @@
 import React from 'react'
 import {Button, InputNumber} from "antd";
-import {NavLink, Redirect} from "react-router-dom"
+import {Redirect} from "react-router-dom"
+import {MENTOR_SESSION_PATH} from "../../../neko-1-main/main-1-ui/Routes";
 
-interface IProps {
-    tasksCount: number,
-    setCount: any,
-    startSession: Function,
-    error: string,
-    token: string
+interface IMentorStartProps {
+    taskCount: number;
+    error: string;
+    sessionToken: string;
+    mentorSetTaskCountCallback: (taskCount: number) => void;
+    startSessionCallback: () => void;
 }
 
-const MentorStart: React.FC<IProps> = (props) => {
-    if(!!props.token){
-        return <Redirect to={'/test-mentor-session-container'}/>
-    }
-    return (
-        <div
-            style={{
-                height: '80vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-            <Button type={'primary'} onClick={() => {props.startSession(props.tasksCount)}}
-                    style={{
-                        width: '100px',
-                        height: '50px',
-                        borderRadius: '20px',
-                    }}
-            >START</Button>
-            <InputNumber min={1} defaultValue={props.tasksCount} onChange={props.setCount}
-                         style={{
-                             display: 'flex',
-                             width: '100px',
-                             height: '50px',
-                             fontSize: '18px',
-                             alignItems: 'center',
-                         }}/>
-            {!!props.error && <div style={{
-                display: 'flex',
-                height: '50px',
-                border: '2px red solid',
-                borderRadius: '20px',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '16px',
-                color: 'red',
-                width: '400px',
-            }}>{props.error}</div> }
-        </div>
-    )
-};
+const MentorStart: React.FC<IMentorStartProps> =
+    ({taskCount, error, sessionToken, mentorSetTaskCountCallback, startSessionCallback}) => {
+        if (!!sessionToken) {
+            return <Redirect to={MENTOR_SESSION_PATH}/>
+        }
+
+        return (
+            <div
+                style={{
+                    height: '80vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+            >
+                <InputNumber
+                    min={0}
+                    value={taskCount}
+                    onChange={e => mentorSetTaskCountCallback(e || 0)}
+                    style={{margin: '20px'}}
+                />
+                <Button
+                    type={'primary'}
+                    onClick={startSessionCallback}
+                >
+                    START
+                </Button>
+
+                {!!error && <div style={{color: 'red'}}>{error}</div>}
+            </div>
+        )
+    };
 
 export default MentorStart
