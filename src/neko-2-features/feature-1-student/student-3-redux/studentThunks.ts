@@ -26,7 +26,7 @@ export const goToSession = (): ThunkAction<Return, IAppStore, ExtraArgument, ISt
             if (response.data.error) {
 
                 if (response.data.error === 'bad sessionToken' || response.data.error === 'session is finished') {
-                    alert('token error');
+                    alert(response.data.error);
                     setCookie('studentToken', '', -1000);
                     setCookie('sessionToken', '', -1000);
                 }
@@ -75,6 +75,7 @@ export const updateStudent = (): ThunkAction<Return, IAppStore, ExtraArgument, I
 
                 if (response.data.error === 'bad sessionToken' || response.data.error === 'session is finished' ||
                     response.data.error === "session don't have student with your studentToken") {
+                    alert(response.data.error);
                     setCookie('studentToken', '', -1000);
                     setCookie('sessionToken', '', -1000);
                 }

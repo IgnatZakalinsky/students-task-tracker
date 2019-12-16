@@ -15,5 +15,8 @@ export const MentorAPI = {
     updateSession(authorToken: string, taskCount: number, finishSession: boolean) {
         return instance.put('/session',{authorToken, taskCount, finishSession})
     },
+    deleteStudent(authorToken: string, studentToken: string) {
+        return instance.delete('/student?authorToken=' + authorToken + '&studentToken=' + studentToken)
+    },
 
 };

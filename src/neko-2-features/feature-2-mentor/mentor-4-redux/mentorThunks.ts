@@ -48,6 +48,7 @@ export const getStudents = (): ThunkAction<Return, IAppStore, ExtraArgument, IMe
             const response = await MentorAPI.getStudents(authorToken);
             if (response.data.error) {
                 if (response.data.error === 'bad authorToken' || response.data.error === 'session is finished') {
+                    alert(response.data.error);
                     setCookie('authorToken', '', -1000);
                     setCookie('sessionToken', '', -1000);
                 }
@@ -81,6 +82,41 @@ export const updateSession = (taskCount: number, finishSession: boolean): ThunkA
             const response = await MentorAPI.updateSession(authorToken, taskCount, finishSession);
             if (response.data.error) {
                 if (response.data.error === 'bad authorToken' || response.data.error === 'session is finished') {
+                    alert(response.data.error);
+                    setCookie('authorToken', '', -1000);
+                    setCookie('sessionToken', '', -1000);
+                }
+
+                dispatch(mentorError(response.data.error));
+            } else {
+                setCookie('sessionToken', response.data.sessionToken);
+                dispatch(mentorGetStudentsSuccess(response.data.sessionToken, response.data.taskCount, response.data.students));
+
+                console.log('Mentor Update session Success!', response)
+            }
+        } catch (e) {
+            dispatch(mentorError(e.message));
+
+            console.log('Mentor Update session Error!', e)
+        }
+    };
+export const deleteStudent = (studentToken: string): ThunkAction<Return, IAppStore, ExtraArgument, IMentorActions> =>
+    async (dispatch: ThunkDispatch<IAppStore, ExtraArgument, IMentorActions>, getStore: IGetStore) => {
+        // const authorToken = getStore().session.authorToken;
+        const authorToken = getCookie('authorToken');
+
+        dispatch(mentorLoading(true));
+
+        try {
+            if (!authorToken) {
+                // alert('authorToken: ' + authorToken);
+                throw {message: 'no authorToken'};
+            }
+
+            const response = await MentorAPI.deleteStudent(authorToken, studentToken);
+            if (response.data.error) {
+                if (response.data.error === 'bad authorToken' || response.data.error === 'session is finished') {
+                    alert(response.data.error);
                     setCookie('authorToken', '', -1000);
                     setCookie('sessionToken', '', -1000);
                 }

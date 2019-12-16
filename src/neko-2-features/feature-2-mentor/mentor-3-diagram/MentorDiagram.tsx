@@ -28,9 +28,10 @@ interface IMentorDiagramProps {
     students: IStudent[];
     error: string;
     loading: boolean;
+    deleteStudentCallback: (studentToken: string) => void;
 }
 
-const MentorDiagram: React.FC<IMentorDiagramProps> = ({error, loading, taskCount, students}) => {
+const MentorDiagram: React.FC<IMentorDiagramProps> = ({error, loading, taskCount, students, deleteStudentCallback}) => {
     const minCount = students.reduce((acc, s) => s.currentTaskNumber < acc ? s.currentTaskNumber : acc, taskCount);
 
     return (
@@ -44,6 +45,7 @@ const MentorDiagram: React.FC<IMentorDiagramProps> = ({error, loading, taskCount
                     taskCount={taskCount}
                     currentTaskNumber={s.currentTaskNumber}
                     minCount={minCount}
+                    deleteStudentCallback={() => deleteStudentCallback(s.studentToken)}
                 />
             ))}
         </div>

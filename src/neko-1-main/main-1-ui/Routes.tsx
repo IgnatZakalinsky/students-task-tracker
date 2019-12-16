@@ -26,7 +26,7 @@ const Routes: React.FC = () => {
             <Route
                 path={STUDENT_LOGIN_PATH}
                 exact={true}
-                render={() => <div style={flexRowCenterCenter80}>You don't have sessionToken in URL!</div>}
+                render={() => <div style={flexRowCenterCenter80}>You don't have sessionToken in URL, get a new link!</div>}
             />
             <Route path={STUDENT_SELECT_PATH} render={() => <StudentSelectContainer/>}/>
 
