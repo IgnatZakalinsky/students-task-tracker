@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import StudentLogin from "./StudentLogin";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
@@ -15,23 +15,26 @@ interface IStudentLoginContainerProps {
 const StudentLoginContainer: React.FC<IStudentLoginContainerProps> = ({sessionToken}) => {
     const studentState = useSelector((store: IAppStore) => store.student);
     const dispatch = useDispatch();
+    const [newStudent, setNewStudent] = useState(true);
 
     useEffect(() => {
         if (sessionToken) {
             setCookie('sessionToken', sessionToken, 60 * 60 * 24 * 7); // 7 days
+            setCookie('studentToken', '', -1000); // 7 days
             dispatch(studentSetSessionToken(sessionToken));
         }
     }, []);
 
     const studentSetNameCallback = (name: string) => {
-        dispatch(studentSetName(name))
+        dispatch(studentSetName(name));
     };
     const goToSessionCallback = () => {
-        dispatch(goToSession())
+        dispatch(goToSession());
+        setNewStudent(false);
     };
 
     const studentToken = getCookie('studentToken');
-    if (!!studentToken) {
+    if (!!studentToken && !newStudent) {
         return <Redirect to={STUDENT_SELECT_PATH}/>
     }
 

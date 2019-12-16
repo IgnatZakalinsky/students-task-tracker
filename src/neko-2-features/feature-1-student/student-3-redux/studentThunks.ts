@@ -62,14 +62,14 @@ export const updateStudent = (): ThunkAction<Return, IAppStore, ExtraArgument, I
         try {
             if (!sessionToken) {
                 // alert('sessionToken: ' + sessionToken);
-                throw {message: 'no sessionToken'};
+                // throw {message: 'no sessionToken'};
             }
             if (!studentToken) {
                 // alert('studentToken: ' + studentToken);
                 throw {message: 'no studentToken'};
             }
 
-            const response = await StudentAPI.updateStudent(studentToken, sessionToken, name, currentTaskNumber);
+            const response = await StudentAPI.updateStudent(studentToken, sessionToken || '', name, currentTaskNumber);
             if (response.data.error) {
                 if (response.data.taskCount) dispatch(studentSuccess(studentToken, name, response.data.taskCount, currentTaskNumber));
 

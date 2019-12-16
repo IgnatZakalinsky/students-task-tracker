@@ -36,7 +36,7 @@ const MentorDiagram: React.FC<IMentorDiagramProps> = ({error, loading, taskCount
     return (
         <div style={flexColumnCenter}>
             {!!error && <div style={{color: 'red'}}>{error}</div>}
-            {loading && <div style={{color: 'orange'}}>Loading...</div>}
+            {loading ? <div style={{color: 'orange'}}>Loading...</div> : <div>...</div>}
 
             {students.map(s => (
                 <StudentProgress
