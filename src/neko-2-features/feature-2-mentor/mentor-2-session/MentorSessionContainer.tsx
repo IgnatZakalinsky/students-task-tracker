@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from "../../../neko-1-main/main-2-bll/store";
 import MentorSession from "./MentorSession";
-import {MENTOR_START_PATH, STUDENT_LOGIN_PATH} from "../../../neko-1-main/main-1-ui/Routes";
+import {
+    MENTOR_GET_AUTHOR_TOKEN_PATH,
+    MENTOR_START_PATH,
+    STUDENT_LOGIN_PATH
+} from "../../../neko-1-main/main-1-ui/Routes";
 import {frontURL} from "../../../frontURL";
 import {Redirect} from "react-router";
 import {getCookie, setCookie} from "../../feature-4-helpers/cookies";
@@ -29,11 +33,13 @@ const MentorSessionContainer: React.FC = () => {
     }
     const sessionToken = getCookie('sessionToken');
     const link = frontURL + STUDENT_LOGIN_PATH + '/' + sessionToken;
+    const mentorLink = frontURL + MENTOR_GET_AUTHOR_TOKEN_PATH + '/' + sessionToken + '/' + authorToken;
 
     return (
         <MentorSession
             taskCount={mentorState.taskCount}
             link={link}
+            mentorLink={mentorLink}
             finishSession={finishSession}
             updateSessionCallback={updateSessionCallback}
         />

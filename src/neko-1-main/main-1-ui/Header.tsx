@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import {
-    MENTOR_DIAGRAM_PATH,
+    MENTOR_GET_AUTHOR_TOKEN_PATH,
     MENTOR_SESSION_PATH,
     MENTOR_START_PATH,
     STUDENT_LOGIN_PATH,
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
 
             {show && <NavLink to={MENTOR_START_PATH}>mentorStart</NavLink>}
             {show && <NavLink to={MENTOR_SESSION_PATH}>mentorSession</NavLink>}
-            {show && <NavLink to={MENTOR_DIAGRAM_PATH}>mentorDiagram</NavLink>}
+            {show && <NavLink to={MENTOR_GET_AUTHOR_TOKEN_PATH}>mentorGetAuthorToken</NavLink>}
         </div>
     );
 };

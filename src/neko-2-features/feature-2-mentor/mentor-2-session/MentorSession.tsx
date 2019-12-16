@@ -6,11 +6,12 @@ import MentorDiagramContainer from "../mentor-3-diagram/MentorDiagramContainer";
 interface IMentorSessionProps {
     taskCount: number;
     link: string;
+    mentorLink: string;
     finishSession: () => void;
     updateSessionCallback: (taskCount: number) => void;
 }
 
-const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, finishSession, updateSessionCallback}) => {
+const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, mentorLink, finishSession, updateSessionCallback}) => {
 
     return (
         <div style={flexColumnCenterCenter80}>
@@ -28,6 +29,7 @@ const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, finishSe
                 </Button>
             </div>
             <MentorDiagramContainer/>
+            {mentorLink}
         </div>
     );
 };
