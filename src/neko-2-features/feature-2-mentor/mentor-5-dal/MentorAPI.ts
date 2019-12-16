@@ -12,5 +12,8 @@ export const MentorAPI = {
     getStudents(authorToken: string) {
         return instance.get('/session?authorToken=' + authorToken)
     },
+    updateSession(authorToken: string, taskCount: number, finishSession: boolean) {
+        return instance.put('/session',{authorToken, taskCount, finishSession})
+    },
 
 };

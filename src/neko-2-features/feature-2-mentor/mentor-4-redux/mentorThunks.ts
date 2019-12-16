@@ -20,8 +20,8 @@ export const startSession = (): ThunkAction<Return, IAppStore, ExtraArgument, IM
 
                 dispatch(mentorError(response.data.error));
             } else {
-                setCookie('sessionToken', response.data.sessionToken, 60 * 60 * 24 * 7); // 7 days
-                setCookie('authorToken', response.data.authorToken, 60 * 60 * 24 * 7); // 7 days
+                setCookie('sessionToken', response.data.sessionToken);
+                setCookie('authorToken', response.data.authorToken);
                 dispatch(mentorSuccess(response.data.sessionToken, response.data.authorToken));
 
                 console.log('Mentor Start Success!', response)
@@ -54,7 +54,7 @@ export const getStudents = (): ThunkAction<Return, IAppStore, ExtraArgument, IMe
 
                 dispatch(mentorError(response.data.error));
             } else {
-                setCookie('sessionToken', response.data.sessionToken, 60 * 60 * 24 * 7); // 7 days
+                setCookie('sessionToken', response.data.sessionToken);
                 dispatch(mentorGetStudentsSuccess(response.data.sessionToken, response.data.taskCount, response.data.students));
 
                 console.log('Mentor Get students Success!', response)
@@ -63,5 +63,38 @@ export const getStudents = (): ThunkAction<Return, IAppStore, ExtraArgument, IMe
             dispatch(mentorError(e.message));
 
             console.log('Mentor Get students Error!', e)
+        }
+    };
+export const updateSession = (taskCount: number, finishSession: boolean): ThunkAction<Return, IAppStore, ExtraArgument, IMentorActions> =>
+    async (dispatch: ThunkDispatch<IAppStore, ExtraArgument, IMentorActions>, getStore: IGetStore) => {
+        // const authorToken = getStore().session.authorToken;
+        const authorToken = getCookie('authorToken');
+
+        dispatch(mentorLoading(true));
+
+        try {
+            if (!authorToken) {
+                // alert('authorToken: ' + authorToken);
+                throw {message: 'no authorToken'};
+            }
+
+            const response = await MentorAPI.updateSession(authorToken, taskCount, finishSession);
+            if (response.data.error) {
+                if (response.data.error === 'bad authorToken' || response.data.error === 'session is finished') {
+                    setCookie('authorToken', '', -1000);
+                    setCookie('sessionToken', '', -1000);
+                }
+
+                dispatch(mentorError(response.data.error));
+            } else {
+                setCookie('sessionToken', response.data.sessionToken);
+                dispatch(mentorGetStudentsSuccess(response.data.sessionToken, response.data.taskCount, response.data.students));
+
+                console.log('Mentor Update session Success!', response)
+            }
+        } catch (e) {
+            dispatch(mentorError(e.message));
+
+            console.log('Mentor Update session Error!', e)
         }
     };

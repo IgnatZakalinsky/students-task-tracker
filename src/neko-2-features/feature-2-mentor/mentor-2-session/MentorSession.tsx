@@ -4,20 +4,26 @@ import {flexColumnCenterCenter80, flexRowCenterSpaceAround} from "../../feature-
 import MentorDiagramContainer from "../mentor-3-diagram/MentorDiagramContainer";
 
 interface IMentorSessionProps {
-    taskCount: number,
-    link: string
-    logout: () => void
+    taskCount: number;
+    link: string;
+    finishSession: () => void;
+    updateSessionCallback: (taskCount: number) => void;
 }
 
-const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, logout}) => {
+const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, finishSession, updateSessionCallback}) => {
 
     return (
         <div style={flexColumnCenterCenter80}>
             {link}
 
             <div style={{...flexRowCenterSpaceAround, width: '100vw'}}>
-                <InputNumber min={0} value={taskCount} style={{margin: '20px'}}/>
-                <Button type={'primary'} onClick={logout}>
+                <InputNumber
+                    min={1}
+                    value={taskCount}
+                    style={{margin: '20px'}}
+                    onChange={e => updateSessionCallback(e || 1)}
+                />
+                <Button type={'primary'} onClick={finishSession}>
                     FINISH SESSION
                 </Button>
             </div>

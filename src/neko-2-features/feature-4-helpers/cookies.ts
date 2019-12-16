@@ -1,4 +1,6 @@
-export const setCookie = (name: string, value: string, age: number) => {
+const defTime = 60 * 60 * 24 * 7; // 7 days
+
+export const setCookie = (name: string, value: string, age = defTime) => {
     document.cookie = `${name}=${value};max-age=${age};path=/`;
 };
 

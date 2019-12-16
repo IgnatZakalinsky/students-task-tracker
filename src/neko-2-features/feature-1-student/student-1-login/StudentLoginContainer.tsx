@@ -19,8 +19,8 @@ const StudentLoginContainer: React.FC<IStudentLoginContainerProps> = ({sessionTo
 
     useEffect(() => {
         if (sessionToken) {
-            setCookie('sessionToken', sessionToken, 60 * 60 * 24 * 7); // 7 days
-            setCookie('studentToken', '', -1000); // 7 days
+            setCookie('sessionToken', sessionToken);
+            setCookie('studentToken', '', -1000);
             dispatch(studentSetSessionToken(sessionToken));
         }
     }, []);

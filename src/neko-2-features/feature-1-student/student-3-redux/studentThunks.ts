@@ -34,7 +34,7 @@ export const goToSession = (): ThunkAction<Return, IAppStore, ExtraArgument, ISt
                 dispatch(studentError(response.data.error));
             } else {
                 console.log('studentToken:', response.data.studentToken);
-                setCookie('studentToken', response.data.studentToken, 60 * 60 * 24 * 7); // 7 days
+                setCookie('studentToken', response.data.studentToken);
                 dispatch(studentSuccess(
                     response.data.studentToken,
                     response.data.name,
