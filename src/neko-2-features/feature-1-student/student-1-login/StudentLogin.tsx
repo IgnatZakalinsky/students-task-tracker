@@ -22,7 +22,7 @@ const StudentLogin: React.FC<IStudentLoginProps> =
                     placeholder={'Name Surname'}
                     value={name}
                     onChange={e => studentSetNameCallback(e.currentTarget.value)}
-                    style={{width: '400px', margin: '20px'}}
+                    style={{width: '250px', margin: '20px'}}
                     disabled={loading}
                 />
                 <Button onClick={goToSessionCallback} disabled={loading} type={'primary'}>

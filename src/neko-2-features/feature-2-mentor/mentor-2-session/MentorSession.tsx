@@ -24,7 +24,7 @@ const MentorSession: React.FC<IMentorSessionProps> = ({taskCount, link, mentorLi
                     style={{margin: '20px'}}
                     onChange={e => updateSessionCallback(e || 1)}
                 />
-                <Button type={'primary'} onClick={finishSession}>
+                <Button type={'danger'} onClick={finishSession}>
                     FINISH SESSION
                 </Button>
             </div>

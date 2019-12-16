@@ -35,7 +35,7 @@ const StudentSelect: React.FC<IStudentSelectProps> =
                     value={name}
                     onChange={e => studentSetNameCallback(e.currentTarget.value)}
                     onBlur={updateStudentCallback}
-                    style={{width: '400px', margin: '20px'}}
+                    style={{width: '250px', margin: '20px'}}
                     disabled={loading}
                 />
                 <InputNumber

@@ -18,7 +18,8 @@ const Header: React.FC = () => {
             style={{
                 ...flexRowCenterSpaceAround,
                 height: '10vh',
-                backgroundColor: '#cccccc'
+                backgroundColor: '#cccccc',
+                flexWrap: 'wrap',
             }}
         >
             <Button onClick={() => setShow(!show)}>{show ? 'hide dev header' : 'show dev header'}</Button>

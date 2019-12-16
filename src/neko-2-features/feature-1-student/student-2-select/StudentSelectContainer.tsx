@@ -3,7 +3,6 @@ import StudentSelect from "./StudentSelect";
 import {useDispatch, useSelector} from "react-redux";
 import {IAppStore} from '../../../neko-1-main/main-2-bll/store';
 import {studentSetCurrentTaskNumber, studentSetName} from "../student-3-redux/studentActions";
-import {flexRowCenterCenter80} from "../../feature-3-styles/styles";
 import {updateStudent} from '../student-3-redux/studentThunks';
 import {getCookie} from "../../feature-4-helpers/cookies";
 import {Redirect} from "react-router";
@@ -30,7 +29,6 @@ const StudentSelectContainer: React.FC = () => {
 
     const studentToken = getCookie('studentToken');
     if (!studentToken) {
-        // return <div style={flexRowCenterCenter80}>old studentToken was cleaned. Now try again!</div>
         return <Redirect to={STUDENT_LOGIN_PATH}/>
     }
 

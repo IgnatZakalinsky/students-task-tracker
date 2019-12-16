@@ -4,8 +4,9 @@ import StudentLoginContainer from '../../neko-2-features/feature-1-student/stude
 import StudentSelectContainer from '../../neko-2-features/feature-1-student/student-2-select/StudentSelectContainer';
 import MentorStartContainer from '../../neko-2-features/feature-2-mentor/mentor-1-start/MentorStartContainer';
 import MentorSessionContainer from '../../neko-2-features/feature-2-mentor/mentor-2-session/MentorSessionContainer';
-import MentorDiagramContainer from "../../neko-2-features/feature-2-mentor/mentor-3-diagram/MentorDiagramContainer";
-import {flexRowCenterCenter80} from "../../neko-2-features/feature-3-styles/styles";
+import {
+    flexColumnCenterCenter, flexColumnCenterCenter80,
+} from "../../neko-2-features/feature-3-styles/styles";
 import {setCookie} from "../../neko-2-features/feature-4-helpers/cookies";
 
 export const STUDENT_LOGIN_PATH = '/student-login';
@@ -17,7 +18,7 @@ export const MENTOR_GET_AUTHOR_TOKEN_PATH = '/mentor-get-author-token';
 
 const Routes: React.FC = () => {
     return (
-        <div>
+        <div style={{...flexColumnCenterCenter, width: '100vw'}}>
             <Route exact path={'/'} render={() => <Redirect to={MENTOR_START_PATH}/>}/>
 
             <Route
@@ -27,8 +28,10 @@ const Routes: React.FC = () => {
             <Route
                 path={STUDENT_LOGIN_PATH}
                 exact={true}
-                render={() => <div style={flexRowCenterCenter80}>You don't have sessionToken in URL, get a new
-                    link!</div>}
+                render={() => <div style={flexColumnCenterCenter80}>
+                    <span>You don't have sessionToken in URL,</span>
+                    <span>get a new link!</span>
+                </div>}
             />
             <Route path={STUDENT_SELECT_PATH} render={() => <StudentSelectContainer/>}/>
 

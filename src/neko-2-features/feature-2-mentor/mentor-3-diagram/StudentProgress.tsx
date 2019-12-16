@@ -21,7 +21,7 @@ const StudentProgress: React.FC<IStudentProgressProps> = ({taskCount, currentTas
                 {name}
             </span>
 
-            <div style={{width: '30vw'}}>
+            <div style={{minWidth: '30vw'}}>
                 <Progress
                     strokeLinecap={'square'}
                     percent={progress}
@@ -34,7 +34,7 @@ const StudentProgress: React.FC<IStudentProgressProps> = ({taskCount, currentTas
             </div>
             <Button
                 onClick={deleteStudentCallback}
-                style={{marginLeft: '0px', marginTop: '6px'}}
+                style={{marginLeft: '20px', marginTop: '6px'}}
                 type={'danger'}
             >
                 X

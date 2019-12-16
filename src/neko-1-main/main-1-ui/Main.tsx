@@ -6,7 +6,7 @@ import Routes from "./Routes";
 const Main: React.FC = () => {
     return (
         <div>
-            <Header/>
+            {/*<Header/>*/}
 
             <Routes/>
         </div>
