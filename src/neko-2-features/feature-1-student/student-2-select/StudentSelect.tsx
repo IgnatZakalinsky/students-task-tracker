@@ -28,7 +28,7 @@ const StudentSelect: React.FC<IStudentSelectProps> =
         return (
             <div style={flexColumnCenterCenter80}>
                 {!!error && <div style={{color: 'red'}}>{error}</div>}
-                {loading && <div style={{color: 'orange'}}>Loading...</div>}
+                {loading ? <div style={{color: 'orange'}}>Loading...</div> : <div><br/></div>}
 
                 <Input
                     placeholder={'Name Surname'}
@@ -38,6 +38,7 @@ const StudentSelect: React.FC<IStudentSelectProps> =
                     style={{width: '250px', margin: '20px'}}
                     disabled={loading}
                 />
+                Я сделал(а)
                 <InputNumber
                     min={0}
                     max={taskCount}
@@ -45,6 +46,7 @@ const StudentSelect: React.FC<IStudentSelectProps> =
                     onChange={e => studentSetCurrentTaskNumberCallback(e || 0)}
                     disabled={loading}
                 />
+                таск(у/и/ок)!
             </div>
         );
     };

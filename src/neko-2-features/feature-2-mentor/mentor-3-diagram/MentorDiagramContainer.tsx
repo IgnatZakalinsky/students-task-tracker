@@ -25,7 +25,7 @@ const MentorDiagramContainer: React.FC = () => {
             error={mentorState.error}
             loading={mentorState.loading}
             taskCount={mentorState.taskCount}
-            students={mentorState.students}
+            students={mentorState.students.sort((a, b) => a.currentTaskNumber - b.currentTaskNumber)}
             deleteStudentCallback={deleteStudentCallback}
         />
     );
